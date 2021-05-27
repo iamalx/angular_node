@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AppService } from '../app.service';
 import { Router } from '@angular/router';
 
@@ -23,16 +23,35 @@ export class MemberDetailsComponent implements OnInit, OnChanges {
   submitted = false;
   alertType: String;
   alertMessage: String;
-  teams = [];
+  teams: [string] = [''];
 
   constructor(private fb: FormBuilder, private appService: AppService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getTeams()
+
+    this.memberForm = this.fb.group({
+      firstName: new FormControl('', Validators.required),
+      lastName: new FormControl('', Validators.required),
+      teamName: new FormControl('', Validators.required),
+      jobTitle: new FormControl('', Validators.required),
+      status: new FormControl('', Validators.required),
+    });
+  }
 
   ngOnChanges() {}
 
+  getTeams() {
+    this.appService.getTeams().subscribe(teams => (this.teams = teams));
+  }
+
   // TODO: Add member to members
-  onSubmit(form: FormGroup) {
-    this.memberModel = form.value;
+  onSubmit() {
+    // console.log(form.value);
+    this.memberModel = this.memberForm.value;
+    console.log(this.memberModel);
+
+    this.appService.addMember(this.memberModel)
+      .subscribe(res => console.log(res));
   }
 }
