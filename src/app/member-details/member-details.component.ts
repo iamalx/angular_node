@@ -33,7 +33,7 @@ export class MemberDetailsComponent implements OnInit, OnChanges {
     this.memberForm = this.fb.group({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
-      teamName: new FormControl('', Validators.required),
+      team: new FormControl('', Validators.required),
       jobTitle: new FormControl('', Validators.required),
       status: new FormControl('', Validators.required),
     });
@@ -52,6 +52,9 @@ export class MemberDetailsComponent implements OnInit, OnChanges {
     console.log(this.memberModel);
 
     this.appService.addMember(this.memberModel)
-      .subscribe(res => console.log(res));
+      .subscribe(res => {
+        this.router.navigate(['/members']);
+        console.log(res)
+      });
   }
 }

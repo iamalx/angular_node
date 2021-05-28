@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './app.service';
+import bootstrap from 'bootstrap' 
 
 @Component({
   selector: 'app-root',

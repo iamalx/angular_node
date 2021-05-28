@@ -29,10 +29,16 @@ export class AppService {
     this.username = name;
   }
 
-  addMember(memberForm) {
+  addMember(memberForm: {}) {
     console.log('addMember')
     return this.http
       .post(`${this.api}/addMember`, memberForm )
+      .pipe(catchError(this.handleError));
+  }
+  
+  deleteMember(memberId: number) {
+    return this.http
+      .delete(`${this.api}/deleteMember/${memberId}`)
       .pipe(catchError(this.handleError));
   }
 

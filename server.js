@@ -89,6 +89,20 @@ app.post('/api/addMember', (req, res) => {
 
 });
 
+app.delete('/api/deleteMember/:memberId', (req, res) => {
+  console.log(req.body, 'delete')
+  console.log(req.params, 'params')
+  axios.delete('http://localhost:3000/members')
+    .then(function (response) {
+      console.log('DELETE: ', response);
+      res.status(201).json({message: 'Success'});
+    })
+    .catch(function (error) {
+      console.log('error: ', error);
+    });
+})
+
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/softrams-racing/index.html'));
 });
