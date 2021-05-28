@@ -90,9 +90,10 @@ app.post('/api/addMember', (req, res) => {
 });
 
 app.delete('/api/deleteMember/:memberId', (req, res) => {
-  console.log(req.body, 'delete')
-  console.log(req.params, 'params')
-  axios.delete('http://localhost:3000/members')
+  // console.log(req.body, 'delete')
+  const id = req.params.memberId 
+  console.log(req.params.memberId, 'params')
+  axios.delete(`http://localhost:3000/members/${id}`, )
     .then(function (response) {
       console.log('DELETE: ', response);
       res.status(201).json({message: 'Success'});

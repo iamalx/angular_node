@@ -41,10 +41,9 @@
               Dropdown
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-              <li><button class="dropdown-item" type="button">Action</button></li>
-              <li><button class="dropdown-item" type="button">Another action</button></li>
-              <li><button class="dropdown-item" type="button">Something else here</button></li>
-            </ul>
+              <li><button class="dropdown-item" (click)="editMemberByID(member?.id)" type="button">Edit</button></li>
+              <li><button class="dropdown-item" (click)="deleteMemberById(member?.id)"type="button">Delete</button></li>
+              </ul>
           </div>
           <!-- </div> -->
           <!-- <span  #popover (click)="editMemberByID(member.id, e)">

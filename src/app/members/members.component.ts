@@ -10,19 +10,11 @@ import { Router } from '@angular/router';
 export class MembersComponent implements OnInit {
   members: [] = [];
   editItem: number;
-  popoverStyle = {
-    // position: 'relative',
-    // right: '90.20001220703125px',  
-  }
 
   @ViewChild('popover', {static: false}) popover: ElementRef; 
 
   constructor(public appService: AppService, private router: Router) {
-    // this.popover = new bootstrap.Popover(document.querySelector('.example-popover'), {
-    //   container: 'body'
-    // })
-    
-  // }
+  
   }
   
   ngOnInit() {
@@ -30,19 +22,16 @@ export class MembersComponent implements OnInit {
       this.members = members
       console.log(this.members)
     });
-
-    console.log(this.popover)
   }
 
   goToAddMemberForm() {
     this.router.navigate(['/member-details']);
   }
 
-  editMemberByID(id: number, e) {
+  editMemberByID(id: number) {
     console.log('id: ', id )
-    this.editItem = id;
-    const {x, y} = this.popover.nativeElement.getBoundingClientRect();
-    console.log(this.popover, x, y)
+    this.goToAddMemberForm()
+    // this.editItem = id;
   }
 
   deleteMemberById(id: number) {
