@@ -8,36 +8,38 @@ import { Router } from '@angular/router';
   styleUrls: ['./members.component.css']
 })
 export class MembersComponent implements OnInit {
-  members: [] = [];
+  members = [];
   editItem: number;
 
   @ViewChild('popover', {static: false}) popover: ElementRef; 
 
-  constructor(public appService: AppService, private router: Router) {
-  
-  }
+  constructor(public appService: AppService, private router: Router) {}
   
   ngOnInit() {
+    this.getMembers()
+  }
+
+  getMembers() {
     this.appService.getMembers().subscribe(members => { 
       this.members = members
       console.log(this.members)
     });
   }
-
+  
   goToAddMemberForm() {
     this.router.navigate(['/member-details']);
   }
 
-  editMemberByID(id: number) {
-    console.log('id: ', id )
-    this.goToAddMemberForm()
+  editMemberByID(memberData: any) {
+    console.log('id: ', memberData )
+    // this.goToAddMemberForm()
+    this.router.navigate(['/member-details'],  {queryParams:  {id: memberData.id}, state: {data: memberData}});
     // this.editItem = id;
   }
 
   deleteMemberById(id: number) {
-    console.log('id: ', id )
     this.appService.deleteMember(id).subscribe(res => { 
-      console.log('deleted: ', res)
+      this.members = this.members.filter(member => member.id !== res.id )
     });
   }
 }

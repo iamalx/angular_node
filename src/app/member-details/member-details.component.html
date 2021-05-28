@@ -1,5 +1,5 @@
 <div class="container-fluid col-md-6">
-  <h3 class="text-center lead">Add Member to Racing Team</h3>
+  <h3 class="text-center lead">{{ templateProps.h3}}</h3>
   <br />
   <!--Template Driven Form or Model Driven Form?-->
   <form  [formGroup]="memberForm" (ngSubmit)="onSubmit()">
@@ -11,7 +11,8 @@
             class="form-control"
             id="firstName"
             placeholder="First Name"
-            formControlName="firstName" 
+            formControlName="firstName"
+            [value]="memberDetails?.firstName" 
           />
         </div>
         <div class="col-md-6">
@@ -21,6 +22,7 @@
             id="lastName"
             placeholder="Last Name"
             formControlName="lastName" 
+            [value]="memberDetails?.lastName"
           />
         </div>
       </div>
@@ -32,29 +34,30 @@
             class="form-control"
             id="jobTitle"
             placeholder="Job Title"
-            formControlName="jobTitle" 
+            formControlName="jobTitle"
+            [value]="memberDetails?.jobTitle" 
           />
         </div>
         <!--We may have to make a service call to get this list-->
         <select id="team" class="col-md-6 custom-select"  formControlName="team" >
-          <option *ngFor="let team of teams">{{ team.teamName }}</option>
+          <option *ngFor="let team of teams" [selected]="memberDetails?.team == team.teamName? true: false " >{{ team.teamName }}</option>
         </select>
       </div>
       <br />
       <div class="form-group col-md-6">
         <div class="row">
           <label id="activeStatus" class="md-check lead">
-            <input type="radio" formControlName="status" value="Active" name="status"  /> Active
+            <input type="radio" formControlName="status" value="Active" name="status" [checked]="memberDetails?.status == 'Active' ? true : false"/> Active
           </label>
           <label class="md-check lead">
-            <input type="radio" formControlName="status" value="Inactive" name="status" /> Inactive
+            <input type="radio" formControlName="status" value="Inactive" name="status" [checked]="memberDetails?.status == 'Inactive' ? true : false"/> Inactive
           </label>
         </div>
       </div>
     </div>
     <!--Disable if form is invalid-->
     <button type="submit" class="btn btn-primary pull-right">
-      Save Member
+      {{ templateProps.button }}
     </button>
   </form>
 </div>

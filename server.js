@@ -81,7 +81,7 @@ app.post('/api/addMember', (req, res) => {
   axios.post('http://localhost:3000/members', req.body)
     .then(function (response) {
       console.log(response);
-      res.status(201).json({message: 'Success'});
+      res.status(200).json({message: 'Success'});
     })
     .catch(function (error) {
       console.log('error: ', error);
@@ -96,7 +96,7 @@ app.delete('/api/deleteMember/:memberId', (req, res) => {
   axios.delete(`http://localhost:3000/members/${id}`, )
     .then(function (response) {
       console.log('DELETE: ', response);
-      res.status(201).json({message: 'Success'});
+      res.status(200).json({message: 'Member Deleted Successfully', id});
     })
     .catch(function (error) {
       console.log('error: ', error);
