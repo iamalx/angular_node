@@ -2,7 +2,7 @@
   <h3 class="text-center lead">{{ templateProps.h3}}</h3>
   <br />
   <!--Template Driven Form or Model Driven Form?-->
-  <form  [formGroup]="memberForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
     <div>
       <div class="row">
         <div class="col-md-6">
@@ -12,7 +12,7 @@
             id="firstName"
             placeholder="First Name"
             formControlName="firstName"
-            [value]="memberDetails?.firstName" 
+            [(ngModel)]="memberDetails.firstName" 
           />
         </div>
         <div class="col-md-6">
@@ -22,7 +22,7 @@
             id="lastName"
             placeholder="Last Name"
             formControlName="lastName" 
-            [value]="memberDetails?.lastName"
+            [(ngModel)]="memberDetails.lastName"
           />
         </div>
       </div>
@@ -35,22 +35,22 @@
             id="jobTitle"
             placeholder="Job Title"
             formControlName="jobTitle"
-            [value]="memberDetails?.jobTitle" 
+            [(ngModel)]="memberDetails.jobTitle" 
           />
         </div>
         <!--We may have to make a service call to get this list-->
-        <select id="team" class="col-md-6 custom-select"  formControlName="team" >
-          <option *ngFor="let team of teams" [selected]="memberDetails?.team == team.teamName? true: false " >{{ team.teamName }}</option>
+        <select id="team" class="col-md-6 custom-select"  formControlName="team"  [(ngModel)]="optionValue.teamName" >
+          <option *ngFor="let team of teams"  [selected]="memberDetails.team === team.teamName? true: false " >{{ team.teamName }}</option>
         </select>
       </div>
       <br />
       <div class="form-group col-md-6">
         <div class="row">
           <label id="activeStatus" class="md-check lead">
-            <input type="radio" formControlName="status" value="Active" name="status" [checked]="memberDetails?.status == 'Active' ? true : false"/> Active
+            <input type="radio" formControlName="status" value="Active" name="status" [(ngModel)]="memberDetails.status" [checked]="memberDetails.status == 'Active' ? true : false"/> Active
           </label>
           <label class="md-check lead">
-            <input type="radio" formControlName="status" value="Inactive" name="status" [checked]="memberDetails?.status == 'Inactive' ? true : false"/> Inactive
+            <input type="radio" formControlName="status" value="Inactive" name="status" [(ngModel)]="memberDetails.status"  [checked]="memberDetails.status == 'Inactive' ? true : false"/> Inactive
           </label>
         </div>
       </div>

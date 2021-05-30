@@ -33,13 +33,15 @@ export class MembersComponent implements OnInit {
   editMemberByID(memberData: any) {
     console.log('id: ', memberData )
     // this.goToAddMemberForm()
-    this.router.navigate(['/member-details'],  {queryParams:  {id: memberData.id}, state: {data: memberData}});
+    this.router.navigate(['/member-details'], {state: {data: memberData}});
     // this.editItem = id;
   }
 
   deleteMemberById(id: number) {
     this.appService.deleteMember(id).subscribe(res => { 
-      this.members = this.members.filter(member => member.id !== res.id )
+      console.log(res)
+      this.members = this.members.filter(member => member.id != res.id )
+       console.log(this.members)
     });
   }
 }

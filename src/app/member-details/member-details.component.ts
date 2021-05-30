@@ -25,28 +25,38 @@ export class MemberDetailsComponent implements OnInit, OnChanges {
   submitted = false;
   alertType: String;
   alertMessage: String;
-  teams: [string] = [''];
+  teams = [];
   templateProps = {
     h3: 'Add Member to Racing Team',
     button: 'Add Member'
   }
-  memberDetails: {};
-  faa = 'no';
+  memberDetails: Member = {
+    firstName: '',
+    lastName: '',
+    jobTitle: '',
+    team: '',
+    status: '',
+  }
+  optionValue: any = {
+    teamName: '',
+  }
 
   constructor(private fb: FormBuilder, private appService: AppService, private router: Router,  private route: ActivatedRoute) {}
 
   ngOnInit() {
-    console.log(this.route.snapshot.queryParamMap.get('id'));
-    if(this.route.snapshot.queryParamMap.get('id')) {
+    // console.log(this.route.snapshot.queryParamMap.get('id'));
+  
+
+    if(history.state.data) {
       this.setEditProps();
-      this.memberDetails = history.state.data
-    }
+    }     
     this.getTeams();
 
     this.initForm();
   }
 
   setEditProps() {
+    this.memberDetails = history.state.data
     this.templateProps = {
       h3: 'Edit Member',
       button: 'Save Changes'
@@ -66,19 +76,41 @@ export class MemberDetailsComponent implements OnInit, OnChanges {
   ngOnChanges() {}
 
   getTeams() {
-    this.appService.getTeams().subscribe(teams => (this.teams = teams));
+    this.appService.getTeams().subscribe(teams => {
+      this.teams = teams
+      if(this.memberDetails['id'])
+        this.optionValue = this.teams.find(team => team.teamName === this.memberDetails.team);
+      console.log(this.optionValue, this.teams, this.memberDetails.team)
+    });
+  }
+
+  saveMember(data: any) {
+    this.appService.addMember(data)
+    .subscribe(res => {
+      this.router.navigate(['/members']);
+      console.log(res)
+    });
+  }
+
+  editMember(newData: any) {
+    console.log(newData, this.memberDetails['id'])
+    this.appService.editMember(newData, this.memberDetails['id'])
+    .subscribe(res => {
+      this.router.navigate(['/members']);
+      console.log(res)
+    });
   }
 
   // TODO: Add member to members
   onSubmit() {
     // console.log(form.value);
     this.memberModel = this.memberForm.value;
-    console.log(this.memberModel);
+    console.log(this.memberModel, this.memberForm);
 
-    this.appService.addMember(this.memberModel)
-      .subscribe(res => {
-        this.router.navigate(['/members']);
-        console.log(res)
-      });
+    
+    if(this.memberDetails['id']) 
+      this.editMember(this.memberModel) 
+    else 
+    this.saveMember(this.memberModel)
   }
 }

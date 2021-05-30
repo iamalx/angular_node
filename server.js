@@ -93,7 +93,7 @@ app.delete('/api/deleteMember/:memberId', (req, res) => {
   // console.log(req.body, 'delete')
   const id = req.params.memberId 
   console.log(req.params.memberId, 'params')
-  axios.delete(`http://localhost:3000/members/${id}`, )
+  axios.delete(`http://localhost:3000/members/${id}`)
     .then(function (response) {
       console.log('DELETE: ', response);
       res.status(200).json({message: 'Member Deleted Successfully', id});
@@ -103,6 +103,20 @@ app.delete('/api/deleteMember/:memberId', (req, res) => {
     });
 })
 
+app.put('/api/editMember/:memberId', (req, res) => {
+  // console.log(req.body, 'delete')
+  const id = req.params.memberId 
+  console.log(req.body, 'EDIT Body')
+  console.log(req.params.memberId, 'EDIT params')
+  axios.put(`http://localhost:3000/members/${id}`, req.body)
+    .then(function (response) {
+      console.log('EDITED: ', response);
+      res.status(200).json({message: 'Member Edited Successfully', id});
+    })
+    .catch(function (error) {
+      console.log('error: ', error);
+    });
+})
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/softrams-racing/index.html'));
