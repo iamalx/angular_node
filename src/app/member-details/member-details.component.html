@@ -56,6 +56,9 @@
       </div>
     </div>
     <!--Disable if form is invalid-->
+    <button (click)="onCancel()" class="btn btn-secondary pull-left">
+      Cancel
+    </button>
     <button type="submit" class="btn btn-primary pull-right">
       {{ templateProps.button }}
     </button>

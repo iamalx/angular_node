@@ -113,4 +113,8 @@ export class MemberDetailsComponent implements OnInit, OnChanges {
     else 
     this.saveMember(this.memberModel)
   }
+
+  onCancel() {
+    this.router.navigate(['/members']);
+  }
 }
