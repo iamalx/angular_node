@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AppService } from '../app.service';
 import { Router } from '@angular/router';
 
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class MembersComponent implements OnInit {
   members = [];
   editItem: number;
+  toastMssg: string = '';
 
   constructor(public appService: AppService, private router: Router) {}
   
@@ -33,10 +34,16 @@ export class MembersComponent implements OnInit {
   deleteMemberById(id: number) {
     this.appService.deleteMember(id).subscribe(res => { 
       this.members = this.members.filter(member => member.id != res.id );
-    });
+      this.showToast('Member deleted successfully!');
+    }, err => this.showToast('Could not delete member'));
   }
   
   goToAddMemberForm() {
     this.router.navigate(['/member-details']);
+  }
+
+  showToast(mssg: string) {
+    this.toastMssg = mssg;
+    setTimeout(_ => this.toastMssg = '', 2500);
   }
 }

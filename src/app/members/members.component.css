@@ -2,9 +2,23 @@
   margin-bottom: 10px;
 }
 
-#popover-wrapper {
-  /* position: absolute;
-  right: 25px; */
+.toast2 {
+  max-width: 350px;
+  overflow: hidden;
+  font-size: .875rem;
+  background-color: rgba(44, 44, 44, 0.85);
+  color: white;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.1);
+  box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 10%);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  opacity: 1; 
+  border-radius: .25rem;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
 }
+
 
 

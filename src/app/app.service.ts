@@ -54,6 +54,7 @@ export class AppService {
 
   // ERROR
   private handleError(error: HttpErrorResponse) {
+    console.log(JSON.stringify(error))
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);
     } else {

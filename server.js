@@ -36,6 +36,14 @@ app.use(
   })
 );
 
+//TODO: 1) url var 
+// 2) send vs json?
+// 3) routes
+// 4) controllers
+// 5) error handler 
+// 6) error message to client
+
+
 app.get('/api/members', (req, res) => {
   axios.get('http://localhost:3000/members')
     .then(response => res.status(200).send(response.data))

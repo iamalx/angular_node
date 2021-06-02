@@ -87,22 +87,47 @@ export class MemberDetailsComponent implements OnInit, OnChanges {
   }
 
   saveMember(data: any) {
-    this.appService.addMember(data)
-      .subscribe(_ => this.goToMemberCompnt());
+    this.appService.addMember(data,)
+      .subscribe(
+        res => this.handleResSuccess(),
+        err => this.handleResError()  
+      );
   }
 
   editMember(newData: any) {
     this.appService.editMember(newData, this.memberDetails['id'])
-      .subscribe(_ => this.goToMemberCompnt());
+      .subscribe(
+        res => this.handleResSuccess(),
+        err => this.handleResError()
+      );
+  }
+
+  handleResSuccess() {
+    this.templateProps.button = 'Saved!';
+    this.memberForm.reset()
+    setTimeout(_ => this.goToMemberCompnt(), 1400)
+  }
+
+  handleResError() {
+    this.templateProps.button = 'Try Again';
+    alert(
+        `Data could not be saved.
+    Please try again.`
+    )
   }
 
   onSubmit() {
     this.memberModel = this.memberForm.value;
 
-    if(this.memberDetails['id']) 
+    if(this.memberDetails['id']) {
+      this.templateProps.button = 'Updating...';
       this.editMember(this.memberModel);
-    else 
+    
+    }
+    else {
+      this.templateProps.button = 'Saving...';
       this.saveMember(this.memberModel);
+    }
   }
 
   goToMemberCompnt() {

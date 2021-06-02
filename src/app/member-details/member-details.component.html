@@ -59,7 +59,7 @@
     <button (click)="goToMemberCompnt()" class="btn btn-secondary pull-left">
       Cancel
     </button>
-    <button type="submit" class="btn btn-primary pull-right">
+    <button [disabled]='!memberForm.valid' type="submit" class="btn btn-primary pull-right">
       {{ templateProps.button }}
     </button>
   </form>
