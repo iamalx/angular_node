@@ -12,23 +12,25 @@ export class AppService {
 
   constructor(private http: HttpClient) {}
 
-  // Returns all members
+  setUsername(name: string): void {
+    this.username = name;
+  }
+
+  // GET /members
   getMembers() {
     return this.http
       .get(`${this.api}/members`)
       .pipe(catchError(this.handleError));
   }
 
+  // GET /teams
   getTeams() {
     return this.http
       .get(`${this.api}/teams`)
       .pipe(catchError(this.handleError));
   }
   
-  setUsername(name: string): void {
-    this.username = name;
-  }
-
+  // POST /addMember
   addMember(memberForm: any) {
     console.log('addMember')
     return this.http
@@ -36,18 +38,21 @@ export class AppService {
       .pipe(catchError(this.handleError));
   }
   
+  // PUT /editMember
   editMember(memberForm: any, id: number) {
     return this.http
       .put(`${this.api}/editMember/${id}`, memberForm)
       .pipe(catchError(this.handleError));
   }
   
+  // DELETE /deleteMember
   deleteMember(memberId: number) {
     return this.http
       .delete(`${this.api}/deleteMember/${memberId}`)
       .pipe(catchError(this.handleError));
   }
 
+  // ERROR
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);

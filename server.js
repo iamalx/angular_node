@@ -37,83 +37,46 @@ app.use(
 );
 
 app.get('/api/members', (req, res) => {
-  // request('http://localhost:3000/members', (err, response, body) => {
-  //   if (response.statusCode <= 500) {
-  //     res.send(body);
-  //   }
-  // });
   axios.get('http://localhost:3000/members')
-    .then(function (response) {
-      // handle success
-      console.log(response.data);
-      res.send(response.data);
-
-    })
-    .catch(function (error) {
-      // handle error
+    .then(response => res.status(200).send(response.data))
+    .catch(error => {
       console.log(error);
     })
 });
 
 // TODO: Dropdown!
 app.get('/api/teams', (req, res) => {
-  // request('http://localhost:3000/teams', (err, response, body) => {
-  //   if (response.statusCode <= 500) {
-  //     res.send(body);
-  //   }
-  // });
   axios.get('http://localhost:3000/teams')
-    .then(function (response) {
-      // handle success
-      console.log(response.data);
-      res.send(response.data);
-
-    })
-    .catch(function (error) {
-      // handle error
+    .then(response => res.status(200).send(response.data))
+    .catch(error => {
       console.log(error);
     })
 });
 
 // Submit Form!
 app.post('/api/addMember', (req, res) => {
-  console.log(req.body, 'nono')
   axios.post('http://localhost:3000/members', req.body)
-    .then(function (response) {
-      console.log(response);
-      res.status(200).json({message: 'Success'});
-    })
-    .catch(function (error) {
+    .then(response => res.status(200).json({message: 'Success'}))
+    .catch(error => {
       console.log('error: ', error);
     });
 
 });
 
 app.delete('/api/deleteMember/:memberId', (req, res) => {
-  // console.log(req.body, 'delete')
-  const id = req.params.memberId 
-  console.log(req.params.memberId, 'params')
+  const id = req.params.memberId;
   axios.delete(`http://localhost:3000/members/${id}`)
-    .then(function (response) {
-      console.log('DELETE: ', response);
-      res.status(200).json({message: 'Member Deleted Successfully', id});
-    })
-    .catch(function (error) {
+    .then(response => res.status(200).json({message: 'Member Deleted Successfully', id}))
+    .catch(error => {
       console.log('error: ', error);
     });
 })
 
 app.put('/api/editMember/:memberId', (req, res) => {
-  // console.log(req.body, 'delete')
-  const id = req.params.memberId 
-  console.log(req.body, 'EDIT Body')
-  console.log(req.params.memberId, 'EDIT params')
+  const id = req.params.memberId;
   axios.put(`http://localhost:3000/members/${id}`, req.body)
-    .then(function (response) {
-      console.log('EDITED: ', response);
-      res.status(200).json({message: 'Member Edited Successfully', id});
-    })
-    .catch(function (error) {
+    .then(response => res.status(200).json({message: 'Member Edited Successfully', id}))
+    .catch(error => {
       console.log('error: ', error);
     });
 })
@@ -122,6 +85,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/softrams-racing/index.html'));
 });
 
-app.listen('8000', () => {
+app.listen('8000', _ => {
   console.log('Vrrrum Vrrrum! Server starting!');
 });
